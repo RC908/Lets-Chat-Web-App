@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="Kwitter_room.css">
+    <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <center>
+        <button class="btn btn-info" id="logout" onclick="logout()">LOG OUT</button>
+        <div id="room"></div>
+        <input type="text" id="input">
+        <button id="send" class="btn btn-success" onclick="send()">SEND</button>
+    </center>
+    <script type="module">
+        var username = localStorage.getItem("user_name");
+        var room_id = localStorage.getItem("roomid");
+import { initializeApp } from "./node_modules/firebase/app/dist/esm/index.esm.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCRZoWU2RhhX896rAWkLM8sgdZYTnNDVuo",
+authDomain: "letschat-4e2b7.firebaseapp.com",
+projectId: "letschat-4e2b7",
+storageBucket: "letschat-4e2b7.appspot.com",
+messagingSenderId: "928923449807",
+appId: "1:928923449807:web:94ec9941f4b0dfec19baba"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+function send() {
+    firebase.database().ref(room_id).push({
+        name:username,
+        message:msg,
+        like:0
+    })
+}
+
+function logout() {
+    localStorage.removeItem("user_name");
+    window.location = "index.html";
+}
+    </script>
+</body>
+
+</html>
